@@ -2,6 +2,7 @@
 #include <string.h>
 
 char * lettersToBinary(char recv);
+void  blocker (char * toBlock);
 
 //%c for char %d for ints
 int main(void)
@@ -46,19 +47,85 @@ int main(void)
 	//all the encrypted message
 	for(int k = 0; k < strlen(encodedMessage); k++)
 	{
+		printf("hey");
 		printf("%c\n", encodedMessage[k]);
 	}
 
 	char buffer[10];
-	int value = 234452;
+	//int value = 234452;
+	int value = 10;
 	//converts integer to string
 	snprintf(buffer, 10, "%d", value);
+	
+	blocker(encodedMessage);
 	//printf("%s",buffer);
 	//printf("%c", *charPtr);
+
+	
 
 	//for every character encode it
 	return 0;
 }
+
+void  blocker (char* toBlock)
+{
+	int elements_cnt = strlen(toBlock);//sizeof(toBlock) / sizeof(toBlock[0]);
+	printf("toBlcokk\n");
+	int block_size = 4;
+	int num_blocks = 10;
+	char arr[num_blocks][block_size];
+
+	for (int i = 0,j=0,k=0; i < elements_cnt; i++)
+	{
+		//j = 0;
+		//k = 0;
+		//printf("%c\n" , toBlock[i]);
+		//printf("%c\n", arr[j][k]);
+		arr[j][k]= toBlock[i];
+		//printf("%c\n", arr[j][k]);
+		//j++;
+		k++;
+		if(k == 4)
+		{
+		   j++;
+		   k = 0;			
+		}
+	}
+	
+	//printf("%d\n", elements_cnt);
+	//printf("%c\n" , arr[1][1]);
+	//printf("\nheyy");
+	//char * this_charPtr = &arr[0][1];
+	//printf("%c", this_charPtr);
+	//printf("%lu\n", strlen(arr));
+
+	int str_cnt = 0;
+	int full = 0;
+	printf("start\n");
+	for(int ii = 0; ii < num_blocks; ii++)
+	{
+	   for(int jj =0; jj < block_size; jj++)
+	   {	
+		printf("--");
+		printf("%c\n", arr[ii][jj]);
+		str_cnt++;
+		if(str_cnt == elements_cnt)
+		{
+			full = 1;
+			break;
+
+		}
+
+	   }
+	   if (full == 1)
+		break;
+
+	}
+	
+	//return "a";
+}
+
+
 
 char * lettersToBinary(char recv)
 {
